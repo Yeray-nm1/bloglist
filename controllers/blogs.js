@@ -21,7 +21,7 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response, next) 
   }
 
   try {
-    const savedBlog = await blog.save()
+    const savedBlog = await (await blog.save()).populate('user', { username: 1, name: 1 })
     response.status(201).json(savedBlog)
   } catch (exception) {
     next(exception)
