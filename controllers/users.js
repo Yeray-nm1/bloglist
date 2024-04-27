@@ -23,8 +23,8 @@ userRouter.post('/', async (request, response, next) => {
   const passwordHash = await bcrypt.hash(body.password, 10);
   const blogList = await Blog.find({});
 
-  const randomBlogId = blogList[Math.floor(Math.random() * blogList.length)].id;
-
+  let randomBlogId = null
+  if (blogList.length > 0) randomBlogId = blogList[Math.floor(Math.random() * blogList.length)].id
 
   const user = new User({
     name: body.name,
